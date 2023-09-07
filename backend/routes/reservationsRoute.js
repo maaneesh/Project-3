@@ -9,9 +9,13 @@ const {
 
 //Routes. Call appropriate functions from controller dile 
 
-router.get("/", getReservations);
-router.post("/", setReservation);
-router.put("/:id", updateReservation);
-router.delete("/:id", deleteReservation);
+
+router.route("/")
+.get(getReservations)
+.post(setReservation);
+
+router.route("/:id")
+.put(updateReservation)
+.delete(deleteReservation);
 
 module.exports = router;
