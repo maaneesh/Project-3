@@ -1,24 +1,41 @@
 const asyncHandler = require("express-async-handler");
+const Reservation = require("../models/reservationModel");
 
 //@desc Get reservations
 //@route GET /api/reservations/
 //@access Private
 const getReservations = asyncHandler(async (req, res) => {
-  res.status(200).json({ message: "Read reservations GET" });
+  const reservations = await Reservation.find();
+  res
+    .status(200)
+    .json({ message: "Read reservations GET returns", reservations });
 });
 
 //@desc Set/Create a reservation
 //@route POST /api/reservations/
 //@access Private
 const setReservation = asyncHandler(async (req, res) => {
-  if (!req.body.service) {
+  if (!req.body.name) {
+    res.status(400);
+    throw new Error("Please add a name for reservation");
+  } else if (!req.body.email) {
+    res.status(400);
+    throw new Error("Please add an email");
+  }else if (!req.body.service) {
     res.status(400);
     throw new Error("Please add a Service for reservation");
   }
-  const service = req.body.service;
-  res
-    .status(200)
-    .json({ message: `Create/set a reservation for ${service} POST` });
+
+
+  const reservation = await Reservation.create({
+    name: req.body.name,
+    email: req.body.email,
+    number: req.body.number,
+    service: req.body.service,
+  });
+
+  res.status(200).json(reservation);
+  //   { message: `Create/set a reservation for ${service} POST`, service }
 });
 
 //@desc Update a reservation
