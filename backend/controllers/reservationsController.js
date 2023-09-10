@@ -21,11 +21,10 @@ const setReservation = asyncHandler(async (req, res) => {
   } else if (!req.body.email) {
     res.status(400);
     throw new Error("Please add an email");
-  }else if (!req.body.service) {
+  } else if (!req.body.service) {
     res.status(400);
     throw new Error("Please add a Service for reservation");
   }
-
 
   const reservation = await Reservation.create({
     name: req.body.name,
@@ -42,7 +41,25 @@ const setReservation = asyncHandler(async (req, res) => {
 //@route PUT /api/reservations/:id
 //@access Private
 const updateReservation = asyncHandler(async (req, res) => {
-  res.status(200).json({ message: `Update reservation PUT ${req.params.id}` });
+  const reservation = await Reservation.findById(req.params.id);
+
+  if (!reservation) {
+    res.status(400);
+    throw new Error("Reservation not found");
+  }
+
+  const updatedReservation = await Reservation.findByIdAndUpdate(
+    req.params.id,
+    req.body,
+    {
+      new: true,
+    }
+  );
+
+//   res.status(200).json({ message: `Update reservation PUT ${req.params.id}`});
+res.status(200).json(updatedReservation);
+
+
 });
 
 //@desc Delete a reservation
