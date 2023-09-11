@@ -56,19 +56,22 @@ const updateReservation = asyncHandler(async (req, res) => {
     }
   );
 
-//   res.status(200).json({ message: `Update reservation PUT ${req.params.id}`});
-res.status(200).json(updatedReservation);
-
-
+  //   res.status(200).json({ message: `Update reservation PUT ${req.params.id}`});
+  res.status(200).json(updatedReservation);
 });
 
 //@desc Delete a reservation
 //@route DELETE /api/reservations/:id
 //@access Private
 const deleteReservation = asyncHandler(async (req, res) => {
-  res
-    .status(200)
-    .json({ message: `Delete reservation DELETE ${req.params.id}` });
+  const reservation = await Reservation.findById(req.params.id);
+  if (!reservation) {
+    res.status(400);
+    throw new Error("Reservation not found");
+  }
+  await reservation.deleteOne();
+
+  res.status(200).json({ message: `Delete reservation DELETE ${req.params.id}` });
 });
 
 module.exports = {
