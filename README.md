@@ -14,7 +14,9 @@ This is a reservation app that allows users to sign in into their account and ma
 
 ## Wireframes
 
-![Screenshot](/frontend/public/homepage.png)
+![Screenshot](/frontend/public/home.png)
+![Screenshot](/frontend/public/login.png)
+![Screenshot](/frontend/public/register.png)
 
 # Technologies
 
