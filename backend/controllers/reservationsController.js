@@ -84,7 +84,7 @@ const deleteReservation = asyncHandler(async (req, res) => {
 
   res
     .status(200)
-    .json({ message: `Delete reservation DELETE ${req.params.id}` });
+    .json({ message: `Delete reservation ${req.params.id}` });
 });
 
 module.exports = {
