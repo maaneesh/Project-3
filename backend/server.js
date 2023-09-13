@@ -16,6 +16,8 @@ app.use(express.urlencoded({ extended: false }));
 //Routes
 
 app.use("/api/reservations", require("./routes/reservationsRoute"));
+app.use("/api/users", require("./routes/userRoutes"));
+
 
 app.use(errorHandler); //Override default error handling with our error handling middleware
 

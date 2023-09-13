@@ -1,11 +1,12 @@
 const asyncHandler = require("express-async-handler");
 const Reservation = require("../models/reservationModel");
+const User = require("../models/userModel");
 
 //@desc Get reservations
 //@route GET /api/reservations/
 //@access Private
 const getReservations = asyncHandler(async (req, res) => {
-  const reservations = await Reservation.find();
+  const reservations = await Reservation.find({ user: req.user.id });
   res
     .status(200)
     .json({ message: "Read reservations GET returns", reservations });
@@ -18,9 +19,6 @@ const setReservation = asyncHandler(async (req, res) => {
   if (!req.body.name) {
     res.status(400);
     throw new Error("Please add a name for reservation");
-  } else if (!req.body.email) {
-    res.status(400);
-    throw new Error("Please add an email");
   } else if (!req.body.service) {
     res.status(400);
     throw new Error("Please add a Service for reservation");
@@ -28,7 +26,7 @@ const setReservation = asyncHandler(async (req, res) => {
 
   const reservation = await Reservation.create({
     name: req.body.name,
-    email: req.body.email,
+    user: req.user.id,
     number: req.body.number,
     service: req.body.service,
   });
@@ -46,6 +44,19 @@ const updateReservation = asyncHandler(async (req, res) => {
   if (!reservation) {
     res.status(400);
     throw new Error("Reservation not found");
+
+    const user = await User.findById(req.user.id);
+
+    //Check for user
+    if (!user) {
+      res.status(401);
+      throw new Error("User not found");
+    }
+  }
+  //Confirm that logged in user matches the reservation user
+  if (reservation.user.toString() !== user.id) {
+    res.status(401);
+    throw new Error("User not authorized");
   }
 
   const updatedReservation = await Reservation.findByIdAndUpdate(
@@ -71,7 +82,9 @@ const deleteReservation = asyncHandler(async (req, res) => {
   }
   await reservation.deleteOne();
 
-  res.status(200).json({ message: `Delete reservation DELETE ${req.params.id}` });
+  res
+    .status(200)
+    .json({ message: `Delete reservation DELETE ${req.params.id}` });
 });
 
 module.exports = {

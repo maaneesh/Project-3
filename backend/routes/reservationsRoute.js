@@ -7,15 +7,14 @@ const {
   deleteReservation,
 } = require("../controllers/reservationsController");
 
-//Routes. Call appropriate functions from controller dile 
+const { protect } = require("../middleware/authMiddleware");
+//Routes. Call appropriate functions from controller dile
 
+router.route("/").get(protect, getReservations).post(protect, setReservation);
 
-router.route("/")
-.get(getReservations)
-.post(setReservation);
-
-router.route("/:id")
-.put(updateReservation)
-.delete(deleteReservation);
+router
+  .route("/:id")
+  .put(protect, updateReservation)
+  .delete(protect,  deleteReservation);
 
 module.exports = router;
