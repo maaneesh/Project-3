@@ -25,7 +25,6 @@ You can manage them by creating a new reservations,
 
 **Backend: Server**
 
-- bcryptjs
 - colors
 - dotenv
 - express
@@ -36,12 +35,10 @@ You can manage them by creating a new reservations,
 - nodemon
 **Frontend: Client**
 
-- @reduxjs/toolkit
 - axios
 - react
 - react-dom
 - react-icons
-- react-redux
 - react-router-dom
 - react-toastify
 - @types/react
@@ -51,7 +48,8 @@ You can manage them by creating a new reservations,
 
 # Unsolved Problems
 
-Currently unable to interact with the server from the front-end
+- Currently unable to fully interact with the server from the front-end
+- Unable to show the list of current reservations
 
 # Future Enhancements
 
