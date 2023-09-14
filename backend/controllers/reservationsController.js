@@ -6,10 +6,10 @@ const User = require("../models/userModel");
 //@route GET /api/reservations/
 //@access Private
 const getReservations = asyncHandler(async (req, res) => {
-  const reservations = await Reservation.find({ user: req.user.id });
+  const reservations = await Reservation.find({ userId: req.params.userId  });
   res
     .status(200)
-    .json({ message: "Read reservations GET returns", reservations });
+    .json({ message: "Current Reservations", reservations });
 });
 
 //@desc Set/Create a reservation

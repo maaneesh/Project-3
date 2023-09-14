@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { FaUser } from 'react-icons/fa'
+import axios from 'axios'
 
 function Register() {
     const [formData, setFormData] = useState({
@@ -13,6 +14,7 @@ function Register() {
     const { name, email, password, password2 } = formData
 
     const onChange = (e) => {
+        console.log(e.target.name)
         setFormData((prevState) => ({
             ...prevState,
             [e.target.name]: e.target.value,
@@ -21,9 +23,11 @@ function Register() {
 
 }
 
-const onSubmit = (e) => {
-    e.preventDefault()
-
+const onSubmit = async (e) => {
+    e.preventDefault();
+    const API_URL = 'http://localhost:5006/api/users/create'
+    const response =  await axios.post(API_URL, formData)
+    alert('USER CREATED')
 }
 
 return (
@@ -31,7 +35,6 @@ return (
         <section className='heading'>
             <h1>
                 <FaUser />Register
-
             </h1>
             <p>Please Create an Account</p>
 
@@ -79,7 +82,7 @@ return (
 
                 </div>
                 <div className="form-group">
-                    <buton type="submit" className="btn btn-block">Submit</buton>
+                    <button type="submit" className="btn btn-block" >Submit</button>
                 </div>
 
             </form>

@@ -10,9 +10,12 @@ This is a reservation app that allows users to sign in into their account and ma
 
 - Trello Board: [Manish chaudhari](https://trello.com/invite/b/fp3CPu3k/ATTId3966837b55a2da5dba0bef11b88bd2bF90E63B7/module-3)
 
-## Screenshots
 
-## Wireframes
+Start by registering asa user then you can start creating reservations.
+You can manage them by creating a new reservations,
+ editing your appointments and deleting them.
+
+## Screenshots
 
 ![Screenshot](/frontend/public/home.png)
 ![Screenshot](/frontend/public/login.png)
@@ -31,7 +34,7 @@ This is a reservation app that allows users to sign in into their account and ma
 - mongoose
 - concurrently
 - nodemon
-  **Frontend: Client**
+**Frontend: Client**
 
 - @reduxjs/toolkit
 - axios
@@ -44,12 +47,15 @@ This is a reservation app that allows users to sign in into their account and ma
 - @types/react
 - vite
 
-# Getting Started
+
 
 # Unsolved Problems
 
-Unable to load
+Currently unable to interact with the server from the front-end
 
 # Future Enhancements
 
-Update it so an admin to to manage multiple users reservation
+- Update it so an admin to to manage multiple users reservation
+- Update it to directly add to users Calendar
+
+

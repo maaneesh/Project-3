@@ -10,11 +10,11 @@ const {
 const { protect } = require("../middleware/authMiddleware");
 //Routes. Call appropriate functions from controller dile
 
-router.route("/").get(protect, getReservations).post(protect, setReservation);
+router.route("/").get( getReservations).post( setReservation);
 
 router
   .route("/:id")
-  .put(protect, updateReservation)
-  .delete(protect,  deleteReservation);
+  .put(updateReservation)
+  .delete( deleteReservation);
 
 module.exports = router;
